@@ -1,0 +1,22 @@
+{
+  "name": "polymer-edu",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ashilay/polymer-edu",
+  "authors": [
+    "Artem Shylai <artem_shylai@epam.com>"
+  ],
+  "description": "learning polymer",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.2"
+  }
+}
