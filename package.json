@@ -1,0 +1,24 @@
+{
+  "name": "evernote-blog",
+  "version": "0.1.0",
+  "description": "polymer-edu\r ===========",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.7.4",
+    "evernote": "^1.25.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashilay/polymer-edu"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashilay/polymer-edu/issues"
+  },
+  "homepage": "https://github.com/ashilay/polymer-edu"
+}
