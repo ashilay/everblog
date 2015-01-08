@@ -4,8 +4,9 @@
   "description": "polymer-edu\r ===========",
   "main": "index.js",
   "dependencies": {
-    "http-server": "^0.7.4",
-    "evernote": "^1.25.3"
+    "evernote": "^1.25.3",
+    "express": "^4.10.7",
+    "http-server": "^0.7.4"
   },
   "devDependencies": {},
   "scripts": {

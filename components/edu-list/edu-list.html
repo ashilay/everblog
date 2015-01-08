@@ -4,10 +4,17 @@
 <polymer-element name="my-element" noscript>
   <template>
   
-  	<core-ajax 
+  	<!-- <core-ajax 
       id="ajax"
       headers='{"X-Mashape-Key": "YDfrJkZNZHmshnlwcaNNHCOxnkgfp1ahhrDjsn7xsfDlSS6Y6B"}'
       url="https://community-unofficial-world-cup.p.mashape.com/api/matches?apikey=kMGEIRAckCumCwruoKJ0uPZwMph5l2ou" 
+      auto 
+      response="{{resp}}">
+    </core-ajax> -->
+
+    <core-ajax 
+      id="ajax"
+      url="/getNotes" 
       auto 
       response="{{resp}}">
     </core-ajax>
