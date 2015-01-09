@@ -12,7 +12,7 @@ app = express();
 fs = require('fs');
 Evernote = require('evernote').Evernote;
 config = JSON.parse(fs.readFileSync('config.json'));
-console.log(config);
+// console.log(config);
 
 // app.get('/', function (req, res) {
 //   res.send('Hello World!')
@@ -61,20 +61,47 @@ app.get("/notebooks", function(req, res) {
 });
 
 
-app.get("/", function(req, res) {
-    var filter = new Evernote.NoteFilter();
-    filter.ascending = true;
-    filter.notebookGuid = config.BLOG_NOTEBOOK_GUID || ''; // Blog
+var notesFilter = new Evernote.NoteFilter();
+notesFilter.ascending = true;
+notesFilter.notebookGuid = config.BLOG_NOTEBOOK_GUID || ''; // Blog
 
-    var rspec = new Evernote.NotesMetadataResultSpec();
-    rspec.includeTitle = true;
-    rspec.includeNotebookGuid = true;
+var notesRspec = new Evernote.NotesMetadataResultSpec();
+// notesRspec.includeTitle = true;
+notesRspec.includeNotebookGuid = true;
 
-    noteStore.findNotesMetadata(developerToken, filter, 0, 100, rspec, function(err, data) {
-        console.log("data: " + JSON.stringify(data));
+app.get("/notes", function(req, res) {
+    noteStore.findNotesMetadata(developerToken, notesFilter, 0, 100, notesRspec, function(err, metadata) {
+        // console.log("total notes: " + JSON.stringify(metadata.notes.totalNotes));
+        console.log("notes: " + JSON.stringify(metadata.notes));
         console.log("err: " + JSON.stringify(err));
 
-        res.send(JSON.stringify(data));
+        var result = [];
+
+        for (var i = 0; i < metadata.notes.length; i++) {
+            noteStore.getNote(developerToken, metadata.notes[i].guid, true, false, false, false, function(err, note) {
+                // if (note) {
+
+                    console.log("title: " + JSON.stringify(note.title));
+
+                    result.push({
+                        title: note.title,
+                        content: note.content,
+                        created: note.created
+                    });
+
+                    if (result.length === metadata.notes.length) {
+                        res.send(JSON.stringify(result)); 
+                    }
+
+                                   
+                // }
+            });
+
+            // res.send(JSON.stringify(result)); 
+        }
+
+        // res.send(JSON.stringify(result)); 
+        
     });
 });
 
