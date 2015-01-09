@@ -12,7 +12,7 @@ app = express();
 fs = require('fs');
 Evernote = require('evernote').Evernote;
 config = JSON.parse(fs.readFileSync('config.json'));
-// console.log(config);
+console.log(config);
 
 // app.get('/', function (req, res) {
 //   res.send('Hello World!')
