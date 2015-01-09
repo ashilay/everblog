@@ -1,4 +1,1 @@
-polymer-edu
-===========
-
-Self education of Polymer
+Everblog - blog based on Evernote API.
