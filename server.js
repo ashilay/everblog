@@ -1,8 +1,18 @@
-var express = require('express');
-var app = express();
-Evernote = require('evernote').Evernote;
+var express,
+    fs,
+    app,
+    config,
+    developerToken,
+    client,
+    userStore,
+    noteStore;
 
-var config = require('./config.json');
+express = require('express');
+app = express();
+fs = require('fs');
+Evernote = require('evernote').Evernote;
+config = JSON.parse(fs.readFileSync('config.json'));
+// console.log(config);
 
 // app.get('/', function (req, res) {
 //   res.send('Hello World!')
@@ -11,67 +21,68 @@ var config = require('./config.json');
 
 //app.use("/", express.static(__dirname));
 
-	// var developerToken = "";
- 	var developerToken = config.DEVELOPER_TOKEN;
-	var client = new Evernote.Client({token: developerToken, sandbox: true});
-	var nbooks = '';
-
-	var userStore = client.getUserStore();
-
-	userStore.checkVersion(
-	  "Evernote EDAMTest (Node.js)",
-	  Evernote.EDAM_VERSION_MAJOR,
-	  Evernote.EDAM_VERSION_MINOR,
-	  function(err, versionOk) {
-	    console.log("Is my Evernote API version up to date? " + versionOk);
-	    console.log();
-	    if (!versionOk) {
-	      process.exit(1);
-	    }
-	  }
-	);
-	 
-	// Set up the NoteStore client 
-	var noteStore = client.getNoteStore();
-	console.log(JSON.stringify(noteStore));
-
-	var notebooks = noteStore.listNotebooks(function(err, notebooks) {
-	  console.log("Found " + notebooks.length + " notebooks:");
-	  for (var i in notebooks) {
-	    console.log("  * " + notebooks[i].name);
-	    nbooks  = nbooks + ' ' + notebooks[i].name;
-	  }
-	});
-
-	// var clientStore = client.getUserStore(function(result) {
-	// 	res.send(JSON.stringify(result));
-	// });
-
-
-	
-	 
-	// Make API calls
-	// noteStore.listNotebooks(function(notebooks) {
-	//   for (var i in notebooks) {
-	//   	nbooks ++ notebooks[i].name;
-	//     console.log("Notebook: " + notebooks[i].name);
-	//   }
-	// });
-
-
-app.get("/getNotes", function (req, res) {
-
-	
-	
-    res.send(JSON.stringify(nbooks));
-    // res.send("Hello World!");
+developerToken = config.DEVELOPER_TOKEN;
+client = new Evernote.Client({
+    token: developerToken,
+    sandbox: true
 });
 
-var server = app.listen(3000, function () {
 
-  var host = server.address().address;
-  var port = server.address().port;
+userStore = client.getUserStore();
 
-  console.log('Example app listening at http://%s:%s', host, port);
+// userStore.checkVersion(
+//   "Evernote EDAMTest (Node.js)",
+//   Evernote.EDAM_VERSION_MAJOR,
+//   Evernote.EDAM_VERSION_MINOR,
+//   function(err, versionOk) {
+//     console.log("Is my Evernote API version up to date? " + versionOk);
+//     console.log();
+//     if (!versionOk) {
+//       process.exit(1);
+//     }
+//   }
+// );
 
+// Set up the NoteStore client 
+noteStore = client.getNoteStore();
+
+app.get("/notebooks", function(req, res) {
+    var nbooks = '';
+    var notebooks = noteStore.listNotebooks(function(err, notebooks) {
+        console.log("Found " + notebooks.length + " notebooks:");
+        for (var i in notebooks) {
+            console.log("  * " + notebooks[i].name);
+            console.log("  * " + notebooks[i].guid);
+            nbooks = nbooks + " {NAME: " + notebooks[i].name + ", GUID: " + notebooks[i].guid + "} ";
+        }
+
+        res.send(JSON.stringify(nbooks));
+    });
 });
+
+
+app.get("/", function(req, res) {
+    var filter = new Evernote.NoteFilter();
+    filter.ascending = true;
+    filter.notebookGuid = config.BLOG_NOTEBOOK_GUID || ''; // Blog
+
+    var rspec = new Evernote.NotesMetadataResultSpec();
+    rspec.includeTitle = true;
+    rspec.includeNotebookGuid = true;
+
+    noteStore.findNotesMetadata(developerToken, filter, 0, 100, rspec, function(err, data) {
+        console.log("data: " + JSON.stringify(data));
+        console.log("err: " + JSON.stringify(err));
+
+        res.send(JSON.stringify(data));
+    });
+});
+
+var server = app.listen(3000, function() {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log('Example app listening at http://%s:%s', host, port);
+});
+
+
+// console.log(JSON.stringify());

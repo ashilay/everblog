@@ -6,6 +6,7 @@
   "dependencies": {
     "evernote": "^1.25.3",
     "express": "^4.10.7",
+    "fs": "0.0.2",
     "http-server": "^0.7.4"
   },
   "devDependencies": {},
