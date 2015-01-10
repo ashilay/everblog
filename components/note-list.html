@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="note-base.html">
+
+<polymer-element name="note-list">
+ 	<template>
+  
+	    <core-ajax 
+	      id="ajax"
+	      url="/notes" 
+	      auto 
+	      handleAs = "json"
+	      on-core-response="{{onDataReady}}">
+	    </core-ajax>
+
+	    <template repeat="{{data as model}}">
+	        <note-base title="{{model.title}}" content="{{content}}"></note-base>
+	    </template>
+
+	</template>
+
+	<script>
+		Polymer({
+			onDataReady: function() {
+				this.data = this.$.ajax.response;
+				
+			}
+		});
+
+	</script>
+</polymer-element>

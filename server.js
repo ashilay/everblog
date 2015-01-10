@@ -19,7 +19,7 @@ config = JSON.parse(fs.readFileSync('config.json'));
 // })
 
 
-//app.use("/", express.static(__dirname));
+app.use("/", express.static(__dirname));
 
 developerToken = config.DEVELOPER_TOKEN;
 client = new Evernote.Client({
@@ -79,8 +79,6 @@ app.get("/notes", function(req, res) {
 
         for (var i = 0; i < metadata.notes.length; i++) {
             noteStore.getNote(developerToken, metadata.notes[i].guid, true, false, false, false, function(err, note) {
-                // if (note) {
-
                     console.log("title: " + JSON.stringify(note.title));
 
                     result.push({
@@ -93,8 +91,6 @@ app.get("/notes", function(req, res) {
                         res.send(JSON.stringify(result)); 
                     }
 
-                                   
-                // }
             });
 
             // res.send(JSON.stringify(result)); 
