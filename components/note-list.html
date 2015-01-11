@@ -14,7 +14,7 @@
 	    </core-ajax>
 
 	    <template repeat="{{data as model}}">
-	        <note-base title="{{model.title}}" content="{{model.content}}"></note-base>
+	        <note-base note-title="{{model.title}}" note-content="{{model.content}}"></note-base>
 	    </template>
 
 	</template>
@@ -23,7 +23,7 @@
 		Polymer({
 			onDataReady: function() {
 				this.data = this.$.ajax.response;
-				
+
 			}
 		});
 
