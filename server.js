@@ -12,6 +12,9 @@ app = express();
 fs = require('fs');
 Evernote = require('evernote').Evernote;
 config = JSON.parse(fs.readFileSync('config.json'));
+
+var DOMParser = require('xmldom').DOMParser;
+
 // console.log(config);
 
 // app.get('/', function (req, res) {
@@ -83,7 +86,8 @@ app.get("/notes", function(req, res) {
 
                     result.push({
                         title: note.title,
-                        content: note.content,
+                        // content: (new DOMParser().parseFromString(note.content)).getElementByTagName("en-note"),
+                        content: /<en-note[^>]*>([\s\S]*?)<\/en-note>/.exec(note.content)[1],
                         created: note.created
                     });
 
@@ -109,3 +113,6 @@ var server = app.listen(3000, function() {
 
 
 // console.log(JSON.stringify());
+
+
+// /<en-note[^>]*>([\s\S]*?)<\/en-note>/.exec(str)
