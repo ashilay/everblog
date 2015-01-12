@@ -4,6 +4,9 @@
 
 <polymer-element name="note-list">
  	<template>
+ 		<style>
+
+		</style>
   
 	    <core-ajax 
 	      id="ajax"
@@ -13,10 +16,11 @@
 	      on-core-response="{{onDataReady}}">
 	    </core-ajax>
 
-	    <template repeat="{{data as model}}">
-	        <note-base caption="{{model.title}}" body="{{model.content}}"></note-base>
-	    </template>
-
+	    <div class="note-list">
+	    	<template repeat="{{data as model}}">
+	        	<note-base caption="{{model.title}}" body="{{model.content}}"></note-base>
+	    	</template>
+		</div>
 	</template>
 
 	<script>

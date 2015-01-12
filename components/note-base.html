@@ -4,6 +4,12 @@
 <polymer-element name="note-base" attributes="caption body" noscript>
 	<template>
 		<style>
+			.note {
+				background: #fff; 
+				padding-bottom: 10px;
+				text-align: center;
+				width: 100%;
+			}
 			.caption {
 				color: red;
 			}
@@ -12,8 +18,10 @@
 			}
 		</style>
 
-    	<h1 class="caption">{{caption}}</h1>
+		<div class="note">
+    		<h1 class="caption">{{caption}}</h1>
 
-    	<template is="juicy-html" content="{{body}}"></template>
+    		<template is="juicy-html" content="{{body}}"></template>
+    	</div>
   	</template>
 </polymer-element>
