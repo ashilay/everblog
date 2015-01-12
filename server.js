@@ -73,6 +73,10 @@ var notesRspec = new Evernote.NotesMetadataResultSpec();
 notesRspec.includeNotebookGuid = true;
 
 app.get("/notes", function(req, res) {
+
+    // [{"title":"Article 2","content":"<div>Article 2 content</div>","created":1420819224000},{"title":"Article 1","content":"<div>Article 1 content<br clear=\"none\"/></div>","created":1420805993000}]
+
+
     noteStore.findNotesMetadata(developerToken, notesFilter, 0, 100, notesRspec, function(err, metadata) {
         // console.log("total notes: " + JSON.stringify(metadata.notes.totalNotes));
         console.log("notes: " + JSON.stringify(metadata.notes));

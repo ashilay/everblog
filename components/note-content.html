@@ -1,0 +1,16 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="note-content" attributes="body">
+	<template>
+    	<div class="content" id="content"></div>
+  	</template>
+
+	<script>
+	  	Polymer({
+			ready: function() {
+	        	this.injectBoundHTML("{{body}}", this.$.content);
+	      }
+	  	});
+	</script>
+
+</polymer-element>

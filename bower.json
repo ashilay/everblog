@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#~0.5.2",
-    "core-ajax": "Polymer/core-ajax#~0.5.2"
+    "core-ajax": "Polymer/core-ajax#~0.5.2",
+    "juicy-html": "Juicy/juicy-html#master"
   }
 }

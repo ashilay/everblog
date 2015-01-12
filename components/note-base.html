@@ -1,11 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
-<link rel="import" href="note-base.html">
+<link rel="import" href="../bower_components/juicy-html/juicy-html.html">
 
-<polymer-element name="note-base" attributes="note-title note-content" noscript>
+<polymer-element name="note-base" attributes="caption body" noscript>
 	<template>
 		<style>
-			.title {
+			.caption {
 				color: red;
 			}
 			.content {
@@ -13,8 +12,8 @@
 			}
 		</style>
 
-    	<h1 class="title">{{note-title}}</h1>
-    	// <div class="content">{{content}}</div>
-    	<inner-html>{{note-content}}</inner-html>
+    	<h1 class="caption">{{caption}}</h1>
+
+    	<template is="juicy-html" content="{{body}}"></template>
   	</template>
 </polymer-element>
