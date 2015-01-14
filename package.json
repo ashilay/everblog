@@ -4,6 +4,7 @@
   "description": "polymer-edu\r ===========",
   "main": "index.js",
   "dependencies": {
+    "del": "^1.1.1",
     "evernote": "^1.25.3",
     "express": "^4.10.7",
     "fs": "0.0.2",
