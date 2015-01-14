@@ -1,7 +1,7 @@
 {
-  "name": "evernote-blog",
+  "name": "Everblog",
   "version": "0.1.0",
-  "description": "polymer-edu\r ===========",
+  "description": "Blog based on Evernote API",
   "main": "index.js",
   "dependencies": {
     "del": "^1.1.1",
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ashilay/polymer-edu"
+    "url": "https://github.com/ashilay/everblog"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ashilay/polymer-edu/issues"
+    "url": "https://github.com/ashilay/everblog/issues"
   },
-  "homepage": "https://github.com/ashilay/polymer-edu"
+  "homepage": "https://github.com/ashilay/everblog"
 }
