@@ -1,22 +1,41 @@
 var gulp = require('gulp'),
 	  vulcanize = require('gulp-vulcanize'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    jshintcli = require('jshint/src/cli');
 
 var del = require('del');
 var packageJSON  = require('./package');
 var jshintConfig = packageJSON.jshintConfig;
-var stylish = require('jshint-stylish');;
+var stylish = require('jshint-stylish');
 
-gulp.task('default', ['clean', 'lint'], function() {
-    gulp.start('vulcanize-csp');
+// gulp.task('default', ['clean', 'lint'], function() {
+//     gulp.start('vulcanize-csp');
+// });
+
+// gulp.task('lint', function() {
+//     return gulp.src('components/*.html')
+//         .pipe(jshint(jshintConfig))
+//         .pipe(jshint.reporter(stylish)); // or 'default'
+// });
+
+
+gulp.task('default', ['clean'], function() {
+    gulp.start('vulcanize-csp', 'lint');
 });
 
 
+// not the case due to compressed js code after vulcanization
 gulp.task('lint', function() {
-    return gulp.src('components/*.html')
+    return gulp.src('dist/*.js')
+
+        .pipe(jshintcli.extract())
+
         .pipe(jshint(jshintConfig))
         .pipe(jshint.reporter(stylish)); // or 'default'
+
 });
+
+
 
 
 gulp.task('vulcanize-csp', function () {
