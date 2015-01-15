@@ -1,11 +1,21 @@
 var gulp = require('gulp'),
-	vulcanize = require('gulp-vulcanize');
+	  vulcanize = require('gulp-vulcanize'),
+    jshint = require('gulp-jshint');
 
 var del = require('del');
+var packageJSON  = require('./package');
+var jshintConfig = packageJSON.jshintConfig;
+var stylish = require('jshint-stylish');;
 
-
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['clean', 'lint'], function() {
     gulp.start('vulcanize-csp');
+});
+
+
+gulp.task('lint', function() {
+    return gulp.src('components/*.html')
+        .pipe(jshint(jshintConfig))
+        .pipe(jshint.reporter(stylish)); // or 'default'
 });
 
 
@@ -18,7 +28,10 @@ gulp.task('vulcanize-csp', function () {
             strip: true,
             csp: true
         }))
-        .pipe(gulp.dest(DEST_DIR));
+        .pipe(gulp.dest(DEST_DIR))
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('clean', function(cb) {

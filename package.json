@@ -13,7 +13,9 @@
   },
   "devDependencies": {
     "gulp": "^3.8.10",
-    "gulp-vulcanize": "^5.0.0"
+    "gulp-jshint": "^1.9.0",
+    "gulp-vulcanize": "^5.0.0",
+    "jshint-stylish": "^1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,5 +29,9 @@
   "bugs": {
     "url": "https://github.com/ashilay/everblog/issues"
   },
-  "homepage": "https://github.com/ashilay/everblog"
+  "homepage": "https://github.com/ashilay/everblog",
+  "jshintConfig": {
+    "lookup": false,
+    "debug": true
+  }
 }
